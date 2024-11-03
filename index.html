@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>소비 기록 웹사이트</title>
     <style>
-        /* 스타일 추가 */
         body {
             font-family: Arial, sans-serif;
         }
@@ -28,27 +27,13 @@
         .content.active {
             display: block;
         }
-        #loginForm {
-            margin: 20px 0;
-        }
     </style>
 </head>
 <body>
     <h1>소비 기록 공유 웹사이트</h1>
 
-    <!-- 로그인 폼 -->
-    <div id="loginSection">
-        <h2>로그인</h2>
-        <form id="loginForm">
-            <label for="username">사용자 이름:</label>
-            <input type="text" id="username" name="username" required><br><br>
-            <button type="submit">로그인</button>
-        </form>
-        <div id="loginMessage"></div>
-    </div>
-
     <!-- 탭 메뉴 -->
-    <div id="tabs" style="display: none;">
+    <div id="tabs">
         <div class="tab active" onclick="showTab('myRecords')">내 소비 기록</div>
         <div class="tab" onclick="showTab('othersRecords')">남의 소비 보기</div>
         <div class="tab" onclick="showTab('celebrityRecords')">유명인 소비 보기</div>
@@ -59,9 +44,9 @@
         <h2>내 소비 기록</h2>
         <form id="purchaseForm">
             <label for="item">물건 이름:</label>
-            <input type="text" id="item" name="item" required><br><br>
+            <input type="text" id="item" required><br><br>
             <label for="link">구매 링크:</label>
-            <input type="url" id="link" name="link" required><br><br>
+            <input type="url" id="link" required><br><br>
             <button type="submit">추가하기</button>
         </form>
         <div id="myPurchaseList"></div>
@@ -78,15 +63,6 @@
     </div>
 
     <script>
-        // 로그인 처리
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            document.getElementById('loginSection').style.display = 'none'; // 로그인 섹션 숨기기
-            document.getElementById('tabs').style.display = 'block'; // 탭 메뉴 보이기
-            document.getElementById('loginMessage').innerText = `${username}님, 환영합니다!`;
-        });
-
         // 탭을 전환하는 함수
         function showTab(tabId) {
             const tabs = document.querySelectorAll('.tab');
