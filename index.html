@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소비 기록 공유 웹사이트</title>
+</head>
+<body>
+    <h1>내 소비 기록</h1>
+
+    <!-- 물건을 추가할 수 있는 폼 -->
+    <form id="purchaseForm">
+        <label for="item">물건 이름:</label>
+        <input type="text" id="item" name="item" required><br><br>
+
+        <label for="link">구매 링크:</label>
+        <input type="url" id="link" name="link" required><br><br>
+
+        <button type="submit">추가하기</button>
+    </form>
+
+    <h2>다른 사람들의 소비 목록</h2>
+    <!-- 다른 사람들이 올린 물건을 표시할 영역 -->
+    <div id="purchaseList">
+        <!-- 여기에서 구매 기록이 표시됨 -->
+    </div>
+
+    <script>
+        // 구매 폼 제출 시 새로운 항목 추가
+        document.getElementById('purchaseForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // 폼에서 값 가져오기
+            const itemName = document.getElementById('item').value;
+            const itemLink = document.getElementById('link').value;
+
+            // 구매 목록에 새로운 항목 추가
+            const purchaseList = document.getElementById('purchaseList');
+            const newItem = document.createElement('p');
+            newItem.innerHTML = `<a href="${itemLink}" target="_blank">${itemName}</a>`;
+            purchaseList.appendChild(newItem);
+
+            // 폼 초기화
+            document.getElementById('purchaseForm').reset();
+        });
+    </script>
+</body>
+</html>
