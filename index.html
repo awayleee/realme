@@ -3,44 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>소비 기록 공유 웹사이트</title>
+    <title>소비 기록 웹사이트</title>
+    <style>
+        /* 탭 스타일 */
+        .tab {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-right: 5px;
+            cursor: pointer;
+            background-color: #ddd;
+            border-radius: 5px;
+        }
+        .tab.active {
+            background-color: #f4978e;
+            color: white;
+        }
+        /* 콘텐츠 스타일 */
+        .content {
+            display: none;
+            margin-top: 20px;
+        }
+        .content.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    <h1>내 소비 기록</h1>
+    <h1>소비 기록 공유 웹사이트</h1>
 
-    <!-- 물건을 추가할 수 있는 폼 -->
-    <form id="purchaseForm">
-        <label for="item">물건 이름:</label>
-        <input type="text" id="item" name="item" required><br><br>
+    <!-- 탭 메뉴 -->
+    <div id="tabs">
+        <div class="tab active" onclick="showTab('myRecords')">내 소비 기록</div>
+        <div class="tab" onclick="showTab('othersRecords')">남의 소비 보기</div>
+        <div class="tab" onclick="showTab('celebrityRecords')">유명인 소비 보기</div>
+    </div>
 
-        <label for="link">구매 링크:</label>
-        <input type="url" id="link" name="link" required><br><br>
+    <!-- 각 탭에 따른 콘텐츠 -->
+    <div id="myRecords" class="content active">
+        <h2>내 소비 기록</h2>
+        <!-- 여기에 내 소비 기록 양식을 추가 -->
+        <form id="purchaseForm">
+            <label for="item">물건 이름:</label>
+            <input type="text" id="item" name="item" required><br><br>
+            <label for="link">구매 링크:</label>
+            <input type="url" id="link" name="link" required><br><br>
+            <button type="submit">추가하기</button>
+        </form>
+        <div id="myPurchaseList"></div>
+    </div>
 
-        <button type="submit">추가하기</button>
-    </form>
+    <div id="othersRecords" class="content">
+        <h2>남의 소비 보기</h2>
+        <!-- 다른 사람들의 소비 기록을 표시할 콘텐츠 -->
+        <p>다른 사람들이 올린 소비 기록이 여기에 표시됩니다.</p>
+    </div>
 
-    <h2>다른 사람들의 소비 목록</h2>
-    <!-- 다른 사람들이 올린 물건을 표시할 영역 -->
-    <div id="purchaseList">
-        <!-- 여기에서 구매 기록이 표시됨 -->
+    <div id="celebrityRecords" class="content">
+        <h2>유명인 소비 보기</h2>
+        <!-- 유명인들의 소비 기록을 표시할 콘텐츠 -->
+        <p>유명인들이 구매한 아이템이 여기에 표시됩니다.</p>
     </div>
 
     <script>
-        // 구매 폼 제출 시 새로운 항목 추가
+        // 탭을 전환하는 함수
+        function showTab(tabId) {
+            // 모든 탭과 콘텐츠를 초기화
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+
+            // 선택된 탭과 콘텐츠만 활성화
+            document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // 내 소비 기록에 아이템 추가하는 코드 (이전 코드와 동일)
         document.getElementById('purchaseForm').addEventListener('submit', function(event) {
             event.preventDefault();
-
-            // 폼에서 값 가져오기
             const itemName = document.getElementById('item').value;
             const itemLink = document.getElementById('link').value;
 
-            // 구매 목록에 새로운 항목 추가
-            const purchaseList = document.getElementById('purchaseList');
+            const myPurchaseList = document.getElementById('myPurchaseList');
             const newItem = document.createElement('p');
             newItem.innerHTML = `<a href="${itemLink}" target="_blank">${itemName}</a>`;
-            purchaseList.appendChild(newItem);
+            myPurchaseList.appendChild(newItem);
 
-            // 폼 초기화
             document.getElementById('purchaseForm').reset();
         });
     </script>
