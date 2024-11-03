@@ -16,37 +16,40 @@
         #myPurchases {
             display: none;
         }
+        #otherPurchases {
+            display: none;
+        }
         #celebrity {
             display: none;
         }
-        #beenzino {
+        #beenzino, #gomin {
             display: none;
             position: relative;
             margin-top: 20px;
         }
-        #beenzino img {
+        #beenzino img, #gomin img {
             width: 300px;
             height: auto;
             border-radius: 10px;
         }
         .item {
             position: absolute;
-            width: 100px;
+            width: 50px; /* 애장템 크기 절반으로 줄임 */
             height: auto;
             border-radius: 5px;
         }
-        #item1 { top: 0; left: 0; }
-        #item2 { top: 0; right: 0; }
-        #item3 { bottom: 0; left: 0; }
-        #item4 { bottom: 0; right: 0; }
+        #item1 { top: 10%; left: 0; }
+        #item2 { top: 10%; right: 0; }
+        #item3 { bottom: 10%; left: 0; }
+        #item4 { bottom: 10%; right: 0; }
         .line {
             position: absolute;
             border: 2px dashed black; /* 두꺼운 검은색 점선 */
         }
-        .line1 { top: 50px; left: 30%; width: 40%; }
-        .line2 { left: 30%; top: 200px; width: 20%; }
-        .line3 { top: 200px; left: 30%; width: 40%; }
-        .line4 { left: 200px; top: 50px; width: 40%; }
+        .line1 { top: 50px; left: 0; width: 200px; transform: rotate(45deg); transform-origin: top left; }
+        .line2 { top: 50px; right: 0; width: 200px; transform: rotate(-45deg); transform-origin: top right; }
+        .line3 { bottom: 50px; left: 0; width: 200px; transform: rotate(45deg); transform-origin: bottom left; }
+        .line4 { bottom: 50px; right: 0; width: 200px; transform: rotate(-45deg); transform-origin: bottom right; }
     </style>
 </head>
 <body>
@@ -78,9 +81,22 @@
         <div id="celebrity">
             <h2>유명인 소비 보기</h2>
             <button onclick="showCelebrity('beenzino')">빈지노</button>
+            <button onclick="showCelebrity('gomin')">고민시</button>
             <div id="beenzino">
                 <h3>빈지노의 소비</h3>
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWZ2TGb-QCe3c1k20TeKJevDfXPz_OzylUDQ&s" alt="빈지노의 사진">
+                <div class="line line1"></div>
+                <div class="line line2"></div>
+                <div class="line line3"></div>
+                <div class="line line4"></div>
+                <img id="item1" class="item" src="https://c1.klipartz.com/pngpicture/393/232/sticker-png-heart-apple-watch-series-4-apple-watch-series-3-smartwatch-apple-watch-series-1-iphone-watchos-5-electrocardiography.png" alt="애장템 1">
+                <img id="item2" class="item" src="https://c0.klipartz.com/pngpicture/982/863/gratis-png-dubai-clothes-iron-panasonic-descuentos-en-precios-y-descuentos-electrodomesticos-para-el-hogar-thumbnail.png" alt="애장템 2">
+                <img id="item3" class="item" src="https://c0.klipartz.com/pngpicture/308/842/sticker-png-t-shirt-logo-font-product-sleeve-dirt-bike-baby-clothes-tshirt-logo-active-shirt-black-top-thumbnail.png" alt="애장템 3">
+                <img id="item4" class="item" src="https://c0.klipartz.com/pngpicture/216/537/sticker-png-mury-baby-clothes-ltda-me-doll-stuffed-animals-cuddly-toys-pink-patchwork-miscellaneous-blue-thumbnail.png" alt="애장템 4">
+            </div>
+            <div id="gomin">
+                <h3>고민시의 소비</h3>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWZ2TGb-QCe3c1k20TeKJevDfXPz_OzylUDQ&s" alt="고민시의 사진">
                 <div class="line line1"></div>
                 <div class="line line2"></div>
                 <div class="line line3"></div>
@@ -103,7 +119,9 @@
         }
 
         function showCelebrity(celebrity) {
-            document.getElementById('beenzino').style.display = 'block';
+            document.getElementById('beenzino').style.display = 'none';
+            document.getElementById('gomin').style.display = 'none';
+            document.getElementById(celebrity).style.display = 'block';
         }
 
         // 소비 기록 추가하기
@@ -120,12 +138,10 @@
                 <h4>${itemName}</h4>
                 <p>${itemDescription}</p>
                 <a href="${itemLink}" target="_blank">구매 링크</a><br>
-                <img src="${itemImage}" alt="${itemName}" style="width:100px; height:auto; border-radius:5px;">
+                <img src="${itemImage}" alt="${itemName}" style="width:100px; height:auto; border-radius: 5px;">
             `;
             purchaseList.appendChild(newItem);
-
-            // 폼 초기화
-            document.getElementById('purchaseForm').reset();
+            this.reset(); // 폼 리셋
         });
     </script>
 </body>
